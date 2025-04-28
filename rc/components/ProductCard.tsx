@@ -2,10 +2,6 @@
 
 import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-);
-
 import { Stripe } from "@stripe/stripe-js";
 
 interface ProductCardProps {
@@ -14,7 +10,7 @@ interface ProductCardProps {
   stripePromise: Promise<Stripe | null> | null;
 }
 
-export const ProductCard = ({ name, price }: ProductCardProps) => {
+export const ProductCard = ({ name, price, stripePromise }: ProductCardProps) => {
   const handleBuy = async () => {
     try {
       const res = await fetch("/api/create-checkout-session", {
@@ -30,7 +26,11 @@ export const ProductCard = ({ name, price }: ProductCardProps) => {
       }
 
       const stripe = await stripePromise;
-      await stripe?.redirectToCheckout({ sessionId: data.sessionId });
+      if (stripe) {
+        await stripe.redirectToCheckout({ sessionId: data.sessionId });
+      } else {
+        console.error("Stripe is not initialized");
+      }
     } catch (error) {
       console.error("Error:", error);
     }
