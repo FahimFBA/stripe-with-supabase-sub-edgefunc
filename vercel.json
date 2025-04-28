@@ -1,11 +1,11 @@
 {
   "version": 2,
   "functions": {
-    "api/webhook.ts": {
+    "src/pages/api/webhook.ts": {
       "memory": 512,
       "maxDuration": 30
     },
-    "api/create-checkout-session.ts": {
+    "src/pages/api/create-checkout-session.ts": {
       "memory": 512,
       "maxDuration": 30
     }
