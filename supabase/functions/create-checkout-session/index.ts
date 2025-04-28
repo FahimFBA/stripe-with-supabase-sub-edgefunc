@@ -1,5 +1,5 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import Stripe from "https://esm.sh/stripe@11.1.0"; // Use esm.sh for Deno compatibility
+import { serve } from "https://deno.land/std@0.177.0/http/server.ts"; // Revert to full URL (matching import_map version)
+import Stripe from "https://esm.sh/stripe?target=deno&deno-std=0.131.0"; // Revert to full URL (matching import_map version)
 
 // Define allowed origins (replace '*' with your specific frontend domain for better security in production)
 // Ensure your development origin (e.g., http://localhost:3001) is included if testing locally.
@@ -14,7 +14,10 @@ const successUrl = Deno.env.get("SUCCESS_URL") || 'http://localhost:3001/success
 const cancelUrl = Deno.env.get("CANCEL_URL") || 'http://localhost:3001/cancel';
 
 console.log('Function starting...');
-console.log('Stripe Key Loaded:', !!Deno.env.get("STRIPE_SECRET_KEY"));
+const stripeKeyFromEnv = Deno.env.get("STRIPE_SECRET_KEY");
+console.log('Stripe Key Loaded:', !!stripeKeyFromEnv);
+// Log first few chars for verification (e.g., "sk_test_...") - DO NOT log the full key
+console.log('Stripe Key Starts With:', stripeKeyFromEnv ? stripeKeyFromEnv.substring(0, 8) : 'UNDEFINED');
 console.log('Success URL:', successUrl);
 console.log('Cancel URL:', cancelUrl);
 
