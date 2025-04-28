@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "build": "next build",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*)", "destination": "/" }
