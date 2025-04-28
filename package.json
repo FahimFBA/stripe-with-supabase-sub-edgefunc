@@ -1,5 +1,5 @@
 {
-  "name": "stripe-with-supabase-nonsub-edgefunc",
+  "name": "stripe-with-supabase-sub-edgefunc",
   "version": "0.1.0",
   "private": true,
   "scripts": {
